@@ -38,12 +38,15 @@ def main():
         st.subheader("Enter Client Details")
         with st.form(key='form1'):
             name = st.text_input("Name")
-            id   = st.text_input("ID")
+            id   = str(st.number_input("Enter a number:", step=1))
             uploaded_file = st.file_uploader("Upload a CSV File")
             if uploaded_file is not None:
+                print("d1 uploaded file is not none")
                 with open(os.path.join(f"{basedir}/data/",uploaded_file.name),"wb") as f:
                     f.write(uploaded_file.getbuffer()) 
                 st.success("Saved File:{} to data/".format(uploaded_file.name))
+            else:
+                print("d1 uploaded file is none")
             submit_button = st.form_submit_button(label='Register')
 
         if submit_button:
@@ -54,9 +57,12 @@ def main():
             if response.status_code == 200:
                 st.success("Client Registered!")
             if uploaded_file is not None:
+                print("uploaded file is not none")
                 client_list["uploaded_file"] = basedir + "/data/" + uploaded_file.name
                 with open(client_list["uploaded_file"], 'wb') as f:
                     f.write(uploaded_file.read())
+            else:
+                print("uploaded file is none")
             add_data(client_list["name"],client_list["id"],client_list["uploaded_file"])
 
         local_data = view()

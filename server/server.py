@@ -54,10 +54,15 @@ def performFederatedLearning():
     temp = []
     context = ts.context_from(utils.read_data(f"{basedir}/key/public.txt"))
     for i in os.listdir(f"{basedir}/uploads"):
-        encrypted_proto = utils.read_data(os.path.join(basedir,"uploads", i))
-        encrypted_value = ts.lazy_ckks_vector_from(encrypted_proto)
-        encrypted_value.link_context(context)
-        temp.append(encrypted_value)
+        if not i.startswith('.'):
+            encrypted_proto = utils.read_data(os.path.join(basedir,"uploads", i))
+            encrypted_value = ts.lazy_ckks_vector_from(encrypted_proto)
+            encrypted_value.link_context(context)
+            temp.append(encrypted_value)
+    print("n_clients")
+    print(n_clients)
+    print("temp")
+    print(len(temp))
     final_value = sum(temp) * (1/n_clients)
     basedir = os.path.abspath(os.path.dirname(__file__))
     utils.write_data(f"{basedir}/final/final_params.txt",final_value.serialize())

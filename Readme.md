@@ -11,11 +11,12 @@ Before using this project, ensure you have the following dependencies installed:
 - [Flask](https://flask.palletsprojects.com/en/2.1.x/)
 - [TenSeal](https://github.com/OpenMined/TenSEAL)
 - [PyTorch](https://pytorch.org/)
+- matplotlib
 
 You can install these dependencies using pip:
 
 ```bash
-pip install streamlit flask tenseal torch
+pip install streamlit flask tenseal torch matplotlib scikit-learn imblearn
 ```
 
 ## Homomorphic Encryption
